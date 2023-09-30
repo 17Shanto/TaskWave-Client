@@ -1,0 +1,19 @@
+{
+  "name": "taskwave",
+  "version": "1.0.0",
+  "description": "A kanban board application.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AF1QUE/kanban-board-cse327-sec-6-8.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AF1QUE/kanban-board-cse327-sec-6-8/issues"
+  },
+  "homepage": "https://github.com/AF1QUE/kanban-board-cse327-sec-6-8#readme"
+}
