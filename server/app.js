@@ -14,8 +14,8 @@ const mongoDBPassword = "3YC2Z*ZlWm6aiqqM$v";
 
 // Construct the MongoDB connection URL
 const mongoDBURL = `mongodb+srv://root:${encodeURIComponent(
-  process.env.DATABASE_PASSWORD
-)}@taskwavecluster.mgnpo9w.mongodb.net/?retryWrites=true&w=majority`;
+  "3YC2Z*ZlWm6aiqqM$v"
+)}@taskwavecluster.mgnpo9w.mongodb.net/taskwave-db?retryWrites=true&w=majority`;
 
 // Connect to MongoDB
 mongoose

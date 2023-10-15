@@ -11,7 +11,4 @@ router.post("/login", userController.loginUser);
 // Logout user (optional)
 router.post("/logout", userController.logoutUser);
 
-// Get user profile (requires authentication)
-router.get("/profile", userController.getUserProfile);
-
 module.exports = router;
