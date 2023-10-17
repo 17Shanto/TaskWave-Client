@@ -3,18 +3,18 @@ const router = express.Router({ mergeParams: true });
 const listController = require("../controllers/listController");
 
 // Create a new list within a workspace
-router.post("/lists", listController.createList);
+router.post("/", listController.createList);
 
 // Get all lists within a workspace
-router.get("/lists", listController.getAllLists);
+router.get("/", listController.getAllLists);
 
 // Get a single list by ID
-router.get("/lists/:id", listController.getListById);
+router.get("/:id", listController.getListById);
 
 // Update a list by ID
-router.put("/lists/:id", listController.updateList);
+router.put("/:id", listController.updateList);
 
 // Delete a list by ID
-router.delete("/lists/:id", listController.deleteList);
+router.delete("/:id", listController.deleteList);
 
 module.exports = router;

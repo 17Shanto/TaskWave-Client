@@ -34,10 +34,10 @@ mongoose
 app.use(bodyParser.json());
 
 // Use the routes
-app.use("/api", workspaceRoutes);
-app.use("/api/workspaces/:workspaceId", listRoutes);
-app.use("/api/lists/:listId", taskRoutes);
-app.use("/api/users", userRoutes); // Include the userRoutes
+app.use("/api/users", userRoutes);
+app.use("/api/workspaces", workspaceRoutes);
+app.use("/api/lists", listRoutes);
+app.use("/api/tasks", taskRoutes);
 
 // Error handling middleware
 app.use((err, req, res, next) => {
