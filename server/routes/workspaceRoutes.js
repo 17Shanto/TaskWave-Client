@@ -22,7 +22,7 @@ router.delete("/:id", requireAuth, workspaceController.deleteWorkspace);
 router.get(
   "/:id/lists",
   requireAuth,
-  requireAuthworkspaceController.getListsAndTasksByWorkspaceId
+  workspaceController.getListsAndTasksByWorkspaceId
 );
 
 module.exports = router;
