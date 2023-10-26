@@ -1,6 +1,14 @@
 const List = require("../models/listModel");
 
-// Create a new list within a workspace
+/**
+ * Create a new list within a workspace.
+ * @function
+ * @async
+ * @param {express.Request} req - The Express request object.
+ * @param {express.Response} res - The Express response object.
+ */
+
+
 exports.createList = async (req, res) => {
   try {
     const list = new List(req.body);
@@ -11,7 +19,14 @@ exports.createList = async (req, res) => {
   }
 };
 
-// Get all lists within a workspace
+/**
+ * Get all lists within a workspace.
+ * @function
+ * @async
+ * @param {express.Request} req - The Express request object.
+ * @param {express.Response} res - The Express response object.
+ */
+
 exports.getAllLists = async (req, res) => {
   const { workspaceId } = req.params;
   try {
@@ -22,7 +37,13 @@ exports.getAllLists = async (req, res) => {
   }
 };
 
-// Get a single list by ID
+/**
+ * Get a single list by ID.
+ * @function
+ * @async
+ * @param {express.Request} req - The Express request object.
+ * @param {express.Response} res - The Express response object.
+ */
 exports.getListById = async (req, res) => {
   const { id } = req.params;
   try {
@@ -36,7 +57,15 @@ exports.getListById = async (req, res) => {
   }
 };
 
-// Update a list by ID
+/**
+ * Update a list by ID.
+ * @function
+ * @async
+ * @param {express.Request} req - The Express request object.
+ * @param {express.Response} res - The Express response object.
+ */
+
+
 exports.updateList = async (req, res) => {
   const { id } = req.params;
   try {
@@ -55,7 +84,15 @@ exports.updateList = async (req, res) => {
   }
 };
 
-// Delete a list by ID
+/**
+ * Delete a list by ID.
+ * @function
+ * @async
+ * @param {express.Request} req - The Express request object.
+ * @param {express.Response} res - The Express response object.
+ */
+
+
 exports.deleteList = async (req, res) => {
   const { id } = req.params;
   try {
