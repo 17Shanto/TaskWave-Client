@@ -1,111 +1,177 @@
-# TaskWave Application Documentation
+```markdown
+# TaskWave
+
+TaskWave is a web application for managing tasks, workspaces, and lists. This README provides an overview of how to use the application and its API. You can interact with the API to create and manage workspaces, lists, tasks, and user accounts.
 
 ## Table of Contents
+1. [Getting Started](#getting-started)
+2. [User Authentication](#user-authentication)
+3. [Workspaces](#workspaces)
+4. [Lists](#lists)
+5. [Tasks](#tasks)
 
-1. [Introduction](#introduction)
-2. [Getting Started](#getting-started)
-   - [Prerequisites](#prerequisites)
-   - [Installation](#installation)
-3. [API Endpoints](#api-endpoints)
-   - [User](#user)
-   - [Workspace](#workspace)
-   - [List](#list)
-   - [Task](#task)
-4. [Authentication](#authentication)
-5. [Error Handling](#error-handling)
-6. [Running the Application](#running-the-application)
+## Getting Started
+To use the TaskWave API, you need to make HTTP requests to the provided endpoints. Below is the base URL for the API:
 
-## 1. Introduction
+```
+Base URL: http://your-server-url.com/api
+```
 
-TaskWave is a Node.js and MongoDB application designed to manage tasks within workspaces. This documentation will guide you through using the application's API to create, update, and manage workspaces, lists, tasks, and users.
-
-## 2. Getting Started
-
-### Prerequisites
-
-- Node.js installed on your system.
-- MongoDB connection string and database set up.
-
-### Installation
-
-1. Clone the TaskWave repository:
-   ```bash
-   git clone <repository-url>
-   cd taskwave
-   ```
-
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-
-3. Configure MongoDB:
-   - Replace `<password>` in the `mongoDBPassword` variable in `app.js` with your MongoDB password.
-   - Update the `mongoDBURL` variable to match your MongoDB connection URL.
-
-## 3. API Endpoints
-
-The TaskWave application provides the following API endpoints for managing users, workspaces, lists, and tasks:
-
-### User
-
-- `POST /api/users/register`: Register a new user.
-- `POST /api/users/login`: Login an existing user.
-- `POST /api/users/logout`: Logout the user (optional).
-
-### Workspace
-
-- `POST /api/workspaces`: Create a new workspace.
-- `GET /api/workspaces`: Get all workspaces.
-- `GET /api/workspaces/:id`: Get a single workspace by ID.
-- `PUT /api/workspaces/:id`: Update a workspace by ID.
-- `DELETE /api/workspaces/:id`: Delete a workspace by ID.
-- `GET /api/workspaces/:id/lists`: Get tasks for a specific list by its ID.
-
-### List
-
-- `POST /api/lists`: Create a new list within a workspace.
-- `GET /api/lists`: Get all lists within a workspace.
-- `GET /api/lists/:id`: Get a single list by ID.
-- `PUT /api/lists/:id`: Update a list by ID.
-- `DELETE /api/lists/:id`: Delete a list by ID.
-
-### Task
-
-- `POST /api/tasks`: Create a new task within a list.
-- `GET /api/tasks`: Get all tasks within a list.
-- `GET /api/tasks/:id`: Get a single task by ID.
-- `PUT /api/tasks/:id`: Update a task by ID.
-- `DELETE /api/tasks/:id`: Delete a task by ID.
-
-## 4. Authentication
-
-To use the TaskWave API, you need to be authenticated. The API uses JSON Web Tokens (JWT) for authentication. After registering or logging in, a token is returned and should be included in the request headers as an "Authorization" token.
+### Authentication
+Some routes require authentication. You should include a valid JSON Web Token (JWT) in the "Authorization" header of your requests to authenticate.
 
 Example:
 ```
 Authorization: Bearer your-jwt-token
 ```
 
-## 5. Error Handling
+## User Authentication
 
-The TaskWave application handles errors by providing clear error messages and status codes. When an error occurs, the API will respond with a JSON object containing an "error" field.
-
-Example:
+### Register a User
+- **Route:** POST `/users/register`
+- **Description:** Register a new user.
+- **Request Body Example:**
 ```json
 {
-  "error": "Internal Server Error"
+  "name": "John Doe",
+  "email": "johndoe@example.com",
+  "password": "your-password"
 }
 ```
 
-## 6. Running the Application
-
-To start the TaskWave application, use the following command:
-
-```bash
-npm start
+### Login User
+- **Route:** POST `/users/login`
+- **Description:** Log in an existing user.
+- **Request Body Example:**
+```json
+{
+  "email": "johndoe@example.com",
+  "password": "your-password"
+}
 ```
 
-The application will run on the specified port (default is 3000).
+### Logout User
+- **Route:** POST `/users/logout`
+- **Description:** Log out the currently authenticated user.
 
-That's it! You now have a basic documentation template for your TaskWave application. You can expand on this by adding more details, examples, and explanations based on your application's specific functionality and requirements.
+## Workspaces
+
+### Create a Workspace
+- **Route:** POST `/workspaces`
+- **Description:** Create a new workspace.
+- **Request Body Example:**
+```json
+{
+  "name": "Project Workspace",
+  "description": "This is a workspace for a project.",
+  "createdBy": "user-id-here"
+}
+```
+
+### Get All Workspaces
+- **Route:** GET `/workspaces`
+- **Description:** Get a list of all workspaces.
+
+### Get Workspace by ID
+- **Route:** GET `/workspaces/:id`
+- **Description:** Get details of a specific workspace by its ID.
+
+### Update Workspace by ID
+- **Route:** PUT `/workspaces/:id`
+- **Description:** Update an existing workspace by its ID.
+- **Request Body Example:**
+```json
+{
+  "name": "New Workspace Name",
+  "description": "Updated description."
+}
+```
+
+### Delete Workspace by ID
+- **Route:** DELETE `/workspaces/:id`
+- **Description:** Delete a workspace by its ID.
+
+### Get Lists and Tasks for a Workspace
+- **Route:** GET `/workspaces/:id/lists`
+- **Description:** Get all lists within a specific workspace, including their tasks.
+
+## Lists
+
+### Create a List
+- **Route:** POST `/lists`
+- **Description:** Create a new list within a workspace.
+- **Request Body Example:**
+```json
+{
+  "title": "To-Do List",
+  "workspace": "workspace-id-here"
+}
+```
+
+### Get All Lists in a Workspace
+- **Route:** GET `/lists`
+- **Description:** Get all lists within a specific workspace.
+
+### Get List by ID
+- **Route:** GET `/lists/:id`
+- **Description:** Get details of a specific list by its ID.
+
+### Update List by ID
+- **Route:** PUT `/lists/:id`
+- **Description:** Update an existing list by its ID.
+- **Request Body Example:**
+```json
+{
+  "title": "Updated List Title"
+}
+```
+
+### Delete List by ID
+- **Route:** DELETE `/lists/:id`
+- **Description:** Delete a list by its ID.
+
+## Tasks
+
+### Create a Task
+- **Route:** POST `/tasks`
+- **Description:** Create a new task within a list.
+- **Request Body Example:**
+```json
+{
+  "title": "Task 1",
+  "description": "Description of Task 1",
+  "list": "list-id-here"
+}
+```
+
+### Get All Tasks in a List
+- **Route:** GET `/tasks`
+- **Description:** Get all tasks within a specific list.
+
+### Get Task by ID
+- **Route:** GET `/tasks/:id`
+- **Description:** Get details of a specific task by its ID.
+
+### Update Task by ID
+- **Route:** PUT `/tasks/:id`
+- **Description:** Update an existing task by its ID.
+- **Request Body Example:**
+```json
+{
+  "title": "Updated Task Title",
+  "description": "Updated task description"
+}
+```
+
+### Delete Task by ID
+- **Route:** DELETE `/tasks/:id`
+- **Description:** Delete a task by its ID.
+
+---
+
+This documentation provides a comprehensive guide on how to use the TaskWave application and its API. Replace `"your-server-url.com"`, `"your-jwt-token"`, `"user-id-here"`, `"workspace-id-here"`, and `"list-id-here"` with actual values when making requests.
+
+Feel free to explore and use TaskWave to manage your tasks and projects efficiently!
+```
+
+Replace `"your-server-url.com"`, `"your-jwt-token"`, `"user-id-here"`, `"workspace-id-here"`, and `"list-id-here"` with the actual values relevant to your project. This README.md file can be placed in your GitHub repository to provide clear documentation for users and contributors.
