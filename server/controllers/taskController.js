@@ -7,7 +7,7 @@ exports.createTask = async (req, res) => {
     await task.save();
     res.status(201).json(task);
   } catch (error) {
-    res.status(500).json({ error: "Could not create task" });
+    res.status(500).json({ message: "Could not create task", error: error });
   }
 };
 
@@ -18,7 +18,7 @@ exports.getAllTasks = async (req, res) => {
     const tasks = await Task.find({ list: listId });
     res.status(200).json(tasks);
   } catch (error) {
-    res.status(500).json({ error: "Could not fetch tasks" });
+    res.status(500).json({ message: "Could not fetch tasks", error: error });
   }
 };
 
@@ -28,7 +28,7 @@ exports.getTaskById = async (req, res) => {
   try {
     const task = await Task.findById(id);
     if (!task) {
-      return res.status(404).json({ error: "Task not found" });
+      return res.status(404).json({ message: "Task not found", error: error });
     }
     res.status(200).json(task);
   } catch (error) {
@@ -49,7 +49,9 @@ exports.updateTask = async (req, res) => {
     }
     res.status(200).json(task);
   } catch (error) {
-    res.status(500).json({ error: "Could not update the task" });
+    res
+      .status(500)
+      .json({ message: "Could not update the task", error: error });
   }
 };
 
@@ -63,6 +65,8 @@ exports.deleteTask = async (req, res) => {
     }
     res.status(204).json();
   } catch (error) {
-    res.status(500).json({ error: "Could not delete the task" });
+    res
+      .status(500)
+      .json({ message: "Could not delete the task", error: error });
   }
 };

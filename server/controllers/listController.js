@@ -7,7 +7,7 @@ exports.createList = async (req, res) => {
     await list.save();
     res.status(201).json(list);
   } catch (error) {
-    res.status(500).json({ error: "Could not create list" });
+    res.status(500).json({ message: "Could not create list", error: error });
   }
 };
 
@@ -18,7 +18,7 @@ exports.getAllLists = async (req, res) => {
     const lists = await List.find({ workspace: workspaceId });
     res.status(200).json(lists);
   } catch (error) {
-    res.status(500).json({ error: "Could not fetch lists" });
+    res.status(500).json({ message: "Could not fetch lists", error: error });
   }
 };
 
@@ -28,7 +28,7 @@ exports.getListById = async (req, res) => {
   try {
     const list = await List.findById(id);
     if (!list) {
-      return res.status(404).json({ error: "List not found" });
+      return res.status(404).json({ message: "List not found", error: error });
     }
     res.status(200).json(list);
   } catch (error) {
@@ -49,7 +49,9 @@ exports.updateList = async (req, res) => {
     }
     res.status(200).json(list);
   } catch (error) {
-    res.status(500).json({ error: "Could not update the list" });
+    res
+      .status(500)
+      .json({ message: "Could not update the list", error: error });
   }
 };
 
@@ -63,6 +65,8 @@ exports.deleteList = async (req, res) => {
     }
     res.status(204).json();
   } catch (error) {
-    res.status(500).json({ error: "Could not delete the list" });
+    res
+      .status(500)
+      .json({ message: "Could not delete the list", error: error });
   }
 };

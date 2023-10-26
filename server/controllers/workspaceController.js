@@ -7,7 +7,9 @@ exports.createWorkspace = async (req, res) => {
     await workspace.save();
     res.status(201).json(workspace);
   } catch (error) {
-    res.status(500).json({ error: "Could not create workspace" });
+    res
+      .status(500)
+      .json({ message: "Could not create workspace", error: error });
   }
 };
 
@@ -17,7 +19,9 @@ exports.getAllWorkspaces = async (req, res) => {
     const workspaces = await Workspace.find();
     res.status(200).json(workspaces);
   } catch (error) {
-    res.status(500).json({ error: "Could not fetch workspaces" });
+    res
+      .status(500)
+      .json({ message: "Could not fetch workspaces", error: error });
   }
 };
 
@@ -31,7 +35,9 @@ exports.getWorkspaceById = async (req, res) => {
     }
     res.status(200).json(workspace);
   } catch (error) {
-    res.status(500).json({ error: "Could not fetch the workspace" });
+    res
+      .status(500)
+      .json({ message: "Could not fetch the workspace", error: error });
   }
 };
 
@@ -48,7 +54,9 @@ exports.updateWorkspace = async (req, res) => {
     }
     res.status(200).json(workspace);
   } catch (error) {
-    res.status(500).json({ error: "Could not update the workspace" });
+    res
+      .status(500)
+      .json({ message: "Could not update the workspace", error: error });
   }
 };
 
@@ -62,6 +70,32 @@ exports.deleteWorkspace = async (req, res) => {
     }
     res.status(204).json();
   } catch (error) {
-    res.status(500).json({ error: "Could not delete the workspace" });
+    res
+      .status(500)
+      .json({ message: "Could not delete the workspace", error: error });
+  }
+};
+
+// Controller function to get all lists and tasks populated of a specific workspace by its ID
+exports.getListsAndTasksByWorkspaceId = async (req, res) => {
+  try {
+    const workspaceId = req.params.id;
+
+    // Find the workspace by its ID
+    const workspace = await Workspace.findById(workspaceId).populate({
+      path: "lists",
+      populate: {
+        path: "tasks",
+      },
+    });
+
+    if (!workspace) {
+      return res.status(404).json({ message: "Workspace not found" });
+    }
+
+    res.status(200).json({ data: { workspace } });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Internal server error" });
   }
 };

@@ -1,20 +1,24 @@
 const express = require("express");
 const router = express.Router();
 const workspaceController = require("../controllers/workspaceController");
+const { requireAuth } = require("../middlewares/authMiddleware");
 
 // Create a new workspace
-router.post("/", workspaceController.createWorkspace);
+router.post("/", requireAuth, workspaceController.createWorkspace);
 
 // Get all workspaces
-router.get("/", workspaceController.getAllWorkspaces);
+router.get("/", requireAuth, workspaceController.getAllWorkspaces);
 
 // Get a single workspace by ID
-router.get("/:id", workspaceController.getWorkspaceById);
+router.get("/:id", requireAuth, workspaceController.getWorkspaceById);
 
 // Update a workspace by ID
-router.put("/:id", workspaceController.updateWorkspace);
+router.put("/:id", requireAuth, workspaceController.updateWorkspace);
 
 // Delete a workspace by ID
-router.delete("/:id", workspaceController.deleteWorkspace);
+router.delete("/:id", requireAuth, workspaceController.deleteWorkspace);
+
+// Get tasks for a specific list by its ID
+router.get("/:id/lists", workspaceController.getListsAndTasksByWorkspaceId);
 
 module.exports = router;

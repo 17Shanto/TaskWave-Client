@@ -1,10 +1,13 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
+
+// Import routes
 const workspaceRoutes = require("./routes/workspaceRoutes");
 const listRoutes = require("./routes/listRoutes");
 const taskRoutes = require("./routes/taskRoutes");
-const userRoutes = require("./routes/userRoutes"); // Import the userRoutes
+const userRoutes = require("./routes/userRoutes");
 
 // Create an Express application
 const app = express();
@@ -32,6 +35,7 @@ mongoose
 
 // Middleware
 app.use(bodyParser.json());
+app.use(cookieParser());
 
 // Use the routes
 app.use("/api/users", userRoutes);
