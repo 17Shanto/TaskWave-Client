@@ -19,6 +19,10 @@ router.put("/:id", requireAuth, workspaceController.updateWorkspace);
 router.delete("/:id", requireAuth, workspaceController.deleteWorkspace);
 
 // Get tasks for a specific list by its ID
-router.get("/:id/lists", workspaceController.getListsAndTasksByWorkspaceId);
+router.get(
+  "/:id/lists",
+  requireAuth,
+  requireAuthworkspaceController.getListsAndTasksByWorkspaceId
+);
 
 module.exports = router;

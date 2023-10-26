@@ -1,20 +1,21 @@
 const express = require("express");
 const router = express.Router({ mergeParams: true });
 const taskController = require("../controllers/taskController");
+const { requireAuth } = require("../middlewares/authMiddleware");
 
 // Create a new task within a list
-router.post("/", taskController.createTask);
+router.post("/", requireAuth, taskController.createTask);
 
 // Get all tasks within a list
-router.get("/", taskController.getAllTasks);
+router.get("/", requireAuth, taskController.getAllTasks);
 
 // Get a single task by ID
-router.get("/:id", taskController.getTaskById);
+router.get("/:id", requireAuth, taskController.getTaskById);
 
 // Update a task by ID
-router.put("/:id", taskController.updateTask);
+router.put("/:id", requireAuth, taskController.updateTask);
 
 // Delete a task by ID
-router.delete("/:id", taskController.deleteTask);
+router.delete("/:id", requireAuth, taskController.deleteTask);
 
 module.exports = router;

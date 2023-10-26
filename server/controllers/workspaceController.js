@@ -84,8 +84,10 @@ exports.getListsAndTasksByWorkspaceId = async (req, res) => {
     // Find the workspace by its ID
     const workspace = await Workspace.findById(workspaceId).populate({
       path: "lists",
+      select: "title",
       populate: {
         path: "tasks",
+        select: "title description priority completed",
       },
     });
 
