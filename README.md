@@ -1,4 +1,4 @@
-```markdown
+
 # TaskWave
 
 TaskWave is a web application for managing tasks, workspaces, and lists. This README provides an overview of how to use the application and its API. You can interact with the API to create and manage workspaces, lists, tasks, and user accounts.
