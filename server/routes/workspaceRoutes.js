@@ -2,6 +2,9 @@ const express = require("express");
 const router = express.Router();
 const workspaceController = require("../controllers/workspaceController");
 const { requireAuth } = require("../middlewares/authMiddleware");
+const {
+  checkCreatorMiddleware,
+} = require("../middlewares/checkCreatorMiddleware");
 
 // Create a new workspace
 router.post("/", requireAuth, workspaceController.createWorkspace);
@@ -22,6 +25,7 @@ router.delete("/:id", requireAuth, workspaceController.deleteWorkspace);
 router.get(
   "/:id/lists",
   requireAuth,
+  checkCreatorMiddleware,
   workspaceController.getListsAndTasksByWorkspaceId
 );
 
