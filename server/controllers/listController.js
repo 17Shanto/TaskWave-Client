@@ -44,6 +44,7 @@ exports.getAllLists = async (req, res) => {
  * @param {express.Request} req - The Express request object.
  * @param {express.Response} res - The Express response object.
  */
+
 exports.getListById = async (req, res) => {
   const { id } = req.params;
   try {
