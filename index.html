@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kanban Board</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+    }
+
+    .kanban-list {
+      width: 300px;
+      border: 1px solid #ccc;
+      margin: 10px;
+      padding: 10px;
+      background-color: #f9f9f9;
+      border-radius: 5px;
+    }
+
+    .kanban-task {
+      border: 1px solid #ddd;
+      background-color: #fff;
+      padding: 10px;
+      margin: 5px;
+      border-radius: 5px;
+    }
+
+    .kanban-task.completed {
+      background-color: #c3e6cb;
+    }
+
+    .kanban-task.priority-high {
+      border-color: #dc3545;
+    }
+
+    .kanban-task.priority-medium {
+      border-color: #ffc107;
+    }
+
+    .kanban-task.priority-low {
+      border-color: #28a745;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="kanban-board">
+    <!-- JavaScript will populate the Kanban board here -->
+  </div>
+
+  <script>
+    const data = {
+      "data": {
+        "workspace": {
+          "_id": "653d54c21647d4c889a99cf6",
+          "name": "Sample Workspace",
+          "lists": [
+            {
+              "_id": "653d54c21647d4c889a99cf8",
+              "title": "Let's start",
+              "tasks": [
+                {
+                  "_id": "653d54c21647d4c889a99cfb",
+                  "title": "Write project proposal",
+                  "priority": "Medium",
+                  "completed": false
+                },
+                {
+                  "_id": "653d54c21647d4c889a99cfe",
+                  "title": "Plan project scope",
+                  "priority": "Medium",
+                  "completed": false
+                },
+                {
+                  "_id": "653d54c21647d4c889a99d01",
+                  "title": "Create wireframes",
+                  "priority": "Medium",
+                  "completed": false
+                }
+              ]
+            },
+            {
+              "_id": "653d54c21647d4c889a99d04",
+              "title": "Doing",
+              "tasks": [
+                {
+                  "_id": "653d54c31647d4c889a99d07",
+                  "title": "Design user interface",
+                  "priority": "Medium",
+                  "completed": false
+                },
+                {
+                  "_id": "653d54c31647d4c889a99d0a",
+                  "title": "Implement backend",
+                  "priority": "Medium",
+                  "completed": false
+                },
+                {
+                  "_id": "653d54c31647d4c889a99d0d",
+                  "title": "Test application",
+                  "priority": "Medium",
+                  "completed": false
+                }
+              ]
+            },
+            {
+              "_id": "653d54c31647d4c889a99d10",
+              "title": "Backlog",
+              "tasks": [
+                {
+                  "_id": "653d54c31647d4c889a99d13",
+                  "title": "Review and document code",
+                  "priority": "Medium",
+                  "completed": false
+                },
+                {
+                  "_id": "653d54c31647d4c889a99d16",
+                  "title": "Prepare project presentation",
+                  "priority": "Medium",
+                  "completed": false
+                },
+                {
+                  "_id": "653d54c31647d4c889a99d19",
+                  "title": "Deploy application",
+                  "priority": "Medium",
+                  "completed": false
+                }
+              ]
+            }
+          ]
+        }
+      }
+    };
+
+    const kanbanBoard = document.querySelector('.kanban-board');
+
+    data.data.workspace.lists.forEach(list => {
+      const listDiv = document.createElement('div');
+      listDiv.className = 'kanban-list';
+      listDiv.innerHTML = `<h2>${list.title}</h2>`;
+
+      list.tasks.forEach(task => {
+        const taskDiv = document.createElement('div');
+        taskDiv.className = `kanban-task ${task.completed ? 'completed' : ''} priority-${task.priority.toLowerCase()}`;
+        taskDiv.innerHTML = task.title;
+        listDiv.appendChild(taskDiv);
+      });
+
+      kanbanBoard.appendChild(listDiv);
+    });
+  </script>
+</body>
+
+</html>

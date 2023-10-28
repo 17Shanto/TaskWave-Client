@@ -24,8 +24,8 @@ router.delete("/:id", requireAuth, workspaceController.deleteWorkspace);
 // Get tasks for a specific list by its ID
 router.get(
   "/:id/lists",
-  requireAuth,
-  checkCreatorMiddleware,
+  // requireAuth,
+  // checkCreatorMiddleware,
   workspaceController.getListsAndTasksByWorkspaceId
 );
 
