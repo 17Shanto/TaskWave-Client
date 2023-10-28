@@ -1,9 +1,9 @@
 // Import necessary modules
 const mongoose = require("mongoose");
-const Workspace = require("./models/workspaceModel");
-const List = require("./models/listModel");
-const Task = require("./models/taskModel");
-const User = require("./models/userModel");
+const Workspace = require("../models/workspaceModel");
+const List = require("../models/listModel");
+const Task = require("../models/taskModel");
+const User = require("../models/userModel");
 
 // Replace this with your MongoDB connection URL
 const mongoDBURL = `mongodb+srv://root:${encodeURIComponent(

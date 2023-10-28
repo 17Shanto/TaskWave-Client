@@ -1,4 +1,5 @@
 const Task = require("../models/taskModel");
+const List = require("../models/listModel");
 
 // Create a new task within a list
 exports.createTask = async (req, res) => {
@@ -37,18 +38,51 @@ exports.getTaskById = async (req, res) => {
 };
 
 // Update a task by ID
+// Update a task by ID
 exports.updateTask = async (req, res) => {
   const { id } = req.params;
+  const { list: newListId, ...updateData } = req.body; // Extract the new list ID and other update data
+
   try {
-    const task = await Task.findByIdAndUpdate(id, req.body, {
-      new: true,
-      runValidators: true,
-    });
+    const task = await Task.findById(id);
+
     if (!task) {
       return res.status(404).json({ error: "Task not found" });
     }
-    res.status(200).json(task);
+
+    const oldListId = task.list; // Get the old list ID
+
+    // Check if the list ID is being changed
+    if (oldListId !== newListId) {
+      // Remove the task from the old list
+      const oldList = await List.findById(oldListId);
+      if (oldList) {
+        oldList.tasks.pull(task._id);
+        await oldList.save();
+      }
+
+      // Add the task to the new list
+      const newList = await List.findById(newListId);
+      if (newList) {
+        newList.tasks.push(task._id);
+        await newList.save();
+      }
+    }
+
+    // Update the task with the provided data
+    const updatedTask = await Task.findByIdAndUpdate(id, updateData, {
+      new: true,
+      runValidators: true,
+    });
+
+    if (!updatedTask) {
+      console.log("Error updating the task - updatedTask is null.");
+      return res.status(404).json({ error: "Task not found or update failed" });
+    }
+
+    res.status(200).json(updatedTask);
   } catch (error) {
+    console.error("Error updating task:", error);
     res
       .status(500)
       .json({ message: "Could not update the task", error: error });
