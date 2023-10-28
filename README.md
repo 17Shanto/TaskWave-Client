@@ -159,7 +159,10 @@ Authorization: Bearer your-jwt-token
 ```json
 {
   "title": "Updated Task Title",
-  "description": "Updated task description"
+  "description": "Updated task description",
+  "list": "list-id-here",
+  "priority": "High",
+  "completed": true
 }
 ```
 
