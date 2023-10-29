@@ -1,19 +1,23 @@
 const jwt = require("jsonwebtoken");
 
 /**
- * Your secret key for JWT token verification.
- */
+ * Your Secret key for the JWT token verification. */
 
 const secretKey = "my-secret-key";
 
 
 /**
+ * 
  * Middleware for JWT token verification.
  *
  * @function
+ * 
  * @param {Object} req - Express request object.
+ * 
  * @param {Object} res - Express response object.
+ * 
  * @param {Function} next - The next middleware function in the request/response cycle.
+ * 
  * @returns {void}
  */
 
@@ -25,12 +29,13 @@ function requireAuth(req, res, next) {
   }
 
 /**
-  * Verify the JWT token with the provided secret key.
-  *
+    * Verify the JWT token with the provided secret key.
   * @function
   * @param {string} token - The JWT token to be verified.
+  * 
   * @param {string} secretKey - The secret key used for verification.
-  * @param {function} callback - Callback function to handle the verification result.
+  * 
+  * @param {function} callback - Callback the function to handle the verification result.
   */
   jwt.verify(token, secretKey, (err, decoded) => {
     if (err) {
