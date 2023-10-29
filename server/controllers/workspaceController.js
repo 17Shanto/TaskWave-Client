@@ -1,6 +1,13 @@
 const Workspace = require("../models/workspaceModel");
 
-// Create a new workspace
+/**
+ * Creates a new workspace.
+ *
+ * @function
+ * @async
+ * @param {Object} req - Express request object.
+ * @param {Object} res - Express response object.
+ */
 exports.createWorkspace = async (req, res) => {
   try {
     const workspace = new Workspace(req.body);
@@ -12,8 +19,14 @@ exports.createWorkspace = async (req, res) => {
       .json({ message: "Could not create workspace", error: error });
   }
 };
-
-// Get all workspaces
+/**
+ * Gets all workspaces.
+ *
+ * @function
+ * @async
+ * @param {Object} req - Express request object.
+ * @param {Object} res - Express response object.
+ */
 exports.getAllWorkspaces = async (req, res) => {
   try {
     const workspaces = await Workspace.find();
@@ -24,8 +37,15 @@ exports.getAllWorkspaces = async (req, res) => {
       .json({ message: "Could not fetch workspaces", error: error });
   }
 };
+/**
+ * Gets a single workspace by its ID.
+ *
+ * @function
+ * @async
+ * @param {Object} req - Express request object.
+ * @param {Object} res - Express response object.
+ */
 
-// Get a single workspace by ID
 exports.getWorkspaceById = async (req, res) => {
   const { id } = req.params;
   try {
@@ -40,8 +60,14 @@ exports.getWorkspaceById = async (req, res) => {
       .json({ message: "Could not fetch the workspace", error: error });
   }
 };
-
-// Update a workspace by ID
+/**
+ * Updates a workspace by its ID.
+ *
+ * @function
+ * @async
+ * @param {Object} req - Express request object.
+ * @param {Object} res - Express response object.
+ */
 exports.updateWorkspace = async (req, res) => {
   const { id } = req.params;
   try {
@@ -60,7 +86,14 @@ exports.updateWorkspace = async (req, res) => {
   }
 };
 
-// Delete a workspace by ID
+/**
+ * Deletes a workspace by its ID.
+ *
+ * @function
+ * @async
+ * @param {Object} req - Express request object.
+ * @param {Object} res - Express response object.
+ */
 exports.deleteWorkspace = async (req, res) => {
   const { id } = req.params;
   try {
@@ -76,12 +109,17 @@ exports.deleteWorkspace = async (req, res) => {
   }
 };
 
-// Controller function to get all lists and tasks populated of a specific workspace by its ID
-exports.getListsAndTasksByWorkspaceId = async (req, res) => {
+/**
+ * Gets all lists and tasks populated of a specific workspace by its ID.
+ *
+ * @function
+ * @async
+ * @param {Object} req - Express request object.
+ * @param {Object} res - Express response object.
+ */exports.getListsAndTasksByWorkspaceId = async (req, res) => {
   try {
     const workspaceId = req.params.id;
 
-    // Find the workspace by its ID
     const workspace = await Workspace.findById(workspaceId).populate({
       path: "lists",
       select: "title",
