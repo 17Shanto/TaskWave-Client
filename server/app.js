@@ -2,7 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
-
+const cors = require('cors')
 // Import routes
 const workspaceRoutes = require("./routes/workspaceRoutes");
 const listRoutes = require("./routes/listRoutes");
@@ -36,7 +36,7 @@ mongoose
 // Middleware
 app.use(bodyParser.json());
 app.use(cookieParser());
-
+app.use(cors())
 // Use the routes
 app.use("/api/users", userRoutes);
 app.use("/api/workspaces", workspaceRoutes);
