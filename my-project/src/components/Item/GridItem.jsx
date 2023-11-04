@@ -49,17 +49,16 @@ const GridItem = () => {
     <div className="container mx-auto p-4">
      
       
-      <div className="">
+   
         
-        <div className="">
-          <h1 className="text-2xl font-bold mb-4">Shopping App</h1>
+   
+     
            
-          <div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2">
+          <div className=" ">
              <WorkTitle  />
           </div>
-        </div>
-         
-      </div>
+        
+   
     </div>
   );
 };
