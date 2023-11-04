@@ -1,35 +1,54 @@
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import {AiOutlineHome}from'react-icons/ai'
 import Modal from '../Modal'
 import { useSelector } from 'react-redux'
+import { useGetWorkspacesQuery } from '../../features/workspaces/workspaceApi'
+import { useEffect, useState } from 'react'
+import ListCreate from'../Item/ListCreate';
 export default function SideBar() {
- 
+  const[showModal,setShowModal] =useState(false)
+  const[getData,setgetData] =useState()
+
+ const {id} = useParams()
+ console.log(id)
   const auth =  useSelector((state)=>state.auth)
    
-   
-
-    
+  const{data} = useGetWorkspacesQuery()
+    // useEffect((
+    //   setgetData(data)
+    // ),[data])
+    // console.log(getData)
   return (
    
-    <div className="bg-gray-800 text-white h-screen w-64 p-4">
+    <div className="bg-gray-800 text-white h-auto w-64 p-4">
      
     <ul className='flex flex-col  gap-y-4'>
-      <li className="mb-2">ALL BOARDS (3)</li>
-      <li className="mb-2">
-        <div className='bg-violet-600 flex p-3 gap-2 rounded-r-full items-center'>
-        
-          <Link to={`/item/${auth.user._id}`}>
-            <div className='flex'>
-          <AiOutlineHome size={30}/>
-           <button>Platform Launch</button>
-           </div>
-           </Link>
-        </div>
-      </li>
-      <li className="mb-2">Roadmap</li>
-      <li className="mb-2">+ Create New Board</li>
+       
+      {
+        data?.map((getingData)=>(
+          <li className="mb-2" key={getingData._id}>
+          <div className='bg-violet-600 flex p-3 gap-2 rounded-r-full items-center'>
+          <button
+        onClick={()=>setShowModal(true)}
+      className="bg-violet-400 hover:bg-violet-600 text-white font-bold py-2 px-4 rounded"
+    >
+       :
+    </button>
+            <Link to={`/item/${getingData.createdBy}`}>
+              <div className='flex'>
+            <AiOutlineHome size={30}/>
+             <button>{getingData.name}</button>
+             </div>
+             </Link>
+          </div>
+        </li>
+        ))
+      }
+    
+       
 
       {/* Add more items as needed */}
     </ul>
+    <ListCreate isvisible={showModal} onClose={()=>setShowModal(false)}/>
   </div>)
 }

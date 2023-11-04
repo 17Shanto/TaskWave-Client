@@ -16,9 +16,9 @@ export default function useAuthCheck() {
         }))
       }
     }
-    setTimeout(()=>{
+   
       setAuthChecked(true)
-    },1000)
+   
    },[dispatch,setAuthChecked])
    return authChecked;
 }

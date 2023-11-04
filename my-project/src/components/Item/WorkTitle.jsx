@@ -1,11 +1,41 @@
  import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useGetWorksapceAllQuery } from '../../features/workspaces/workspaceApi'
+ 
 import { workSpace } from '../../features/workspaces/workSlic';
- export default function WorkTitle({data}) {
-    console.log(data)
+import { useGetWorkspacesListQuery,useGetWorkspacesQuery } from '../../features/workspaces/workspaceApi';
+ export default function WorkTitle() {
+   const [id,setId] = useState()
+    const {work} = useSelector(state=>state.work)
+     
+    
+      console.log(id)
+   
+      const {data} = useGetWorkspacesListQuery(id)
+        console.log(data)
+   const handleClick=(Id)=>{
+    
+    
+     setId(Id)
+
+   }
+    
    return (
-     <div>WorkTitle</div>
+     
+     <div className='flex justify-between '>
+   {
+     work.map((wor,i) => (
+     
+      <div className='' key={i}>
+        
+         <button onClick={() => handleClick(wor._id)}> {i+1}</button>
+        {i+1}</div>
+     ))
+   }
+   
+     
+   
+    
+     </div>
    )
  }
  

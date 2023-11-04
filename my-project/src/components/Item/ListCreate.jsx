@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import{GiCancel}from'react-icons/gi'
-import { useCreateWorkSpaceMutation } from '../features/workspaces/workspaceApi'
+import { useCreateWorkSpaceMutation } from '../../features/workspaces/workspaceApi'
 import { useDispatch, useSelector } from 'react-redux'
-export default function Modal({isvisible,onClose}) {
+export default function CreateList({isvisible,onClose}) {
   const [createWorkSpace,{data,isLoading,isError}] = useCreateWorkSpaceMutation()
   const dispatch = useDispatch()
-  const auth = useSelector((state)=>state.auth)
-  // console.log(auth.user._id)
+  const auth = useSelector((state)=>state.work)
+  console.log({auth})
 
   const [formData, setFormData] = useState({
     name: "",

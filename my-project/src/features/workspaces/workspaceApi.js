@@ -2,14 +2,12 @@ import { apiSlice } from "../api/apiSlice";
  
 export const authApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    getWorksapceAll: builder.query({
-      query: () => ({
-        
-        url: "/workspaces",
-        method:'GET',
-         
-      }),
-            
+    getWorkspacesList: builder.query({
+      query: (id) => `/workspaces/${id}/lists`,
+    }),
+
+    getWorkspaces: builder.query({
+      query: () => '/workspaces',
     }),
     createWorkSpace: builder.mutation({
       query: (data) => ({
@@ -18,6 +16,8 @@ export const authApi = apiSlice.injectEndpoints({
         body: data,
       }),
     }),
+   
+
     // createWorkSpaceList: builder.mutation({
     //   query: (data) => ({
     //     url: "/list",
@@ -29,4 +29,4 @@ export const authApi = apiSlice.injectEndpoints({
   
 });
 
-export const { useGetWorksapceAllQuery,useCreateWorkSpaceMutation } = authApi;
+export const {  useGetWorkspacesQuery,useCreateWorkSpaceMutation,useGetWorkspacesListQuery } = authApi;
