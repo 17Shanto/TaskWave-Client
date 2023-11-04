@@ -38,12 +38,14 @@ function requireAuth(req, res, next) {
   * @param {function} callback - Callback the function to handle the verification result.
   */
   jwt.verify(token, secretKey, (err, decoded) => {
+    console.log(token)
     if (err) {
       return res.status(401).json({ message: "Unauthorized: Invalid token" });
     }
 
     // If the token is valid, store the decoded user information in the request for later use
     req.user = decoded;
+    console.log(req.user)
     next();
   });
 }

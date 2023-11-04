@@ -1,7 +1,9 @@
 import {createSlice}from'@reduxjs/toolkit'
 
 const initialState = {
-    work:undefined
+    work:undefined,
+    workspaceByid:[]
+   
 }
 
 
@@ -11,11 +13,14 @@ const WorkSlice = createSlice({
   reducers:{
     workSpace:(state,action)=>{
       state.work = action.payload;
-    }
+    },
+    workspaceByid:(state,action)=>{
+      state.work = action.payload;
+    },
   }
 
 })
 
 
-export const {workSpace} = WorkSlice.actions;
+export const {workSpace,workspaceByid} = WorkSlice.actions;
 export default WorkSlice.reducer;

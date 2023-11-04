@@ -122,3 +122,8 @@ export default function Signing() {
     </div>
   );
 }
+// {
+//   "name": "Project Workspace",
+//   "description": "This is a workspace for a project.",
+//   "createdBy": "user-id-here"
+// }

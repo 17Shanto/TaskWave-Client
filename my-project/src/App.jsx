@@ -18,8 +18,9 @@ import SecondPage from './pages/Home/SecondPage'
        <Route element={<Home />} path='/' exact/>
       </Route>
       <Route element={<PrivateRoutes/>}>
-       <Route element={<SecondPage />} path='/item' exact/>
+       <Route element={<SecondPage />} path='/item/:id' exact/>
       </Route>
+     
        <Route path='/login' element={<Signing />}/>
        <Route path='/register' element={<SignUp />}/>
 

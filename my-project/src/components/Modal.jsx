@@ -1,6 +1,39 @@
-import React from 'react'
+import React, { useState } from 'react'
 import{GiCancel}from'react-icons/gi'
+import { useCreateWorkSpaceMutation } from '../features/workspaces/workspaceApi'
+import { useDispatch, useSelector } from 'react-redux'
 export default function Modal({isvisible,onClose}) {
+  const [createWorkSpace,{data,isLoading,isError}] = useCreateWorkSpaceMutation()
+  const dispatch = useDispatch()
+  const auth = useSelector((state)=>state.auth)
+  console.log(auth.user._id)
+
+  const [formData, setFormData] = useState({
+    name: "",
+    description:"",
+     
+  });
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+   
+ 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    
+      console.log(formData)
+    
+    createWorkSpace({
+      name:formData.name,
+      description:formData.description,
+      createdBy:auth.user._id
+    })
+     
+   
+    
+  }
   if(!isvisible) return null
   return (
     <div className='fixed inset-0 h-screen  w-full bg-opacity-25  bg-slate-600 backdrop-blur-sm flex justify-center items-center'>
@@ -17,17 +50,19 @@ export default function Modal({isvisible,onClose}) {
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form className="space-y-6" action="#" method="POST">
+          <form className="space-y-6"  onSubmit={handleSubmit}>
             <div>
-              <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
-                Ennter your Titlle
+              <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">
+                Enter your project Name
               </label>
               <div className="mt-2">
                 <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  autoComplete="email"
+                  id="name"
+                  name="name"
+                  type="text"
+                  autoComplete=""
+                  value={formData.name}
+                  onChange={handleInputChange}
                   required
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
@@ -35,21 +70,23 @@ export default function Modal({isvisible,onClose}) {
             </div>
 
             <div>
-              <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
+              <label htmlFor="description" className="block text-sm font-medium leading-6 text-gray-900">
                 Ennter your Text
               </label>
               <div className="mt-2">
                 <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  autoComplete="email"
+                  id="description"
+                  name="description"
+                  type="description"
+                  autoComplete=""
+                  value={formData.description}
+                  onChange={handleInputChange}
                   required
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
-
+         
             <div>
               <button
                 type="submit"

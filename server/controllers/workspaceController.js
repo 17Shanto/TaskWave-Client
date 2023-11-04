@@ -9,8 +9,10 @@ const Workspace = require("../models/workspaceModel");
  * @param {Object} res - Express response object.
  */
 exports.createWorkspace = async (req, res) => {
+ 
   try {
     const workspace = new Workspace(req.body);
+    console.log({workspace})
     await workspace.save();
     res.status(201).json(workspace);
   } catch (error) {
@@ -28,6 +30,7 @@ exports.createWorkspace = async (req, res) => {
  * @param {Object} res - Express response object.
  */
 exports.getAllWorkspaces = async (req, res) => {
+   
   try {
     const workspaces = await Workspace.find();
     res.status(200).json(workspaces);
