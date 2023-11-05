@@ -5,6 +5,7 @@ import { workSpace } from '../../features/workspaces/workSlic';
 import { useGetWorkspacesListQuery,useGetWorkspacesQuery } from '../../features/workspaces/workspaceApi';
 import ListCreateItem from './ListItemCreate';
 import GetList from './getList';
+import CommonModal from './CommonModal';
  export default function WorkTitle() {
    const lists = 
     {
@@ -46,15 +47,26 @@ import GetList from './getList';
   const[showModal,setShowModal] =useState(false)
    return (
      
-     <div className=''>
-   <div className='flex gap-2 items-center justify-center'>
-   <h1 className='text-2xl font-bold  '>Work Title Title</h1>
-   <button
+     <div className=' '>
+      <div className=' px-10 flex items-center justify-between '>
+    <div><h1 className='text-2xl font-bold  '>Work Title Title</h1></div>
+  <div className='flex gap-5'>
+  <button
         onClick={()=>setShowModal(true)}
       className="bg-violet-400 hover:bg-violet-600 text-white font-bold py-2 px-4 rounded"
     >
-       create List
+       Edit
     </button>
+    <button
+         
+      className="bg-violet-400 hover:bg-violet-600 text-white font-bold py-2 px-4 rounded"
+    >
+       Delete
+    </button>
+  </div>
+  </div>
+   <div className='flex gap-2 items-center justify-center'>
+    
    </div>
      
    <ListCreateItem isvisible={showModal} onClose={()=>setShowModal(false)}/>

@@ -36,8 +36,8 @@ export default function SideBar() {
     </button>
             <Link to={`/item/${getingData.createdBy}`}>
               <div className='flex'>
-            <AiOutlineHome size={30}/>
-             <button>{getingData.name}</button>
+           
+             <button>{getingData.name} <AiOutlineHome size={30}/></button>
              </div>
              </Link>
           </div>
